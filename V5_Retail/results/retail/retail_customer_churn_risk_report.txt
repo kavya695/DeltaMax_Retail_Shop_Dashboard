@@ -1,0 +1,14 @@
+DeltaMax V5 Retail Customer Churn Risk Report\nCustomers scored: 2,408\n\nRisk-level counts:\nrisk_level
+LOW       1242
+MEDIUM     712
+HIGH       454\n\nTop 10 customers by churn risk:\nentity_type  entity_id  purchase_count  total_value last_activity  recency_days  churn_risk_score  inactive_flag risk_level
+   CUSTOMER CUST001487               1        19.67    2026-01-11           354          0.971034              1       HIGH
+   CUSTOMER CUST001107               1        35.48    2026-01-03           362          0.970411              1       HIGH
+   CUSTOMER CUST000473               1        20.89    2026-02-07           327          0.967639              1       HIGH
+   CUSTOMER CUST000175               1        53.11    2026-01-25           340          0.966570              1       HIGH
+   CUSTOMER CUST001244               1        42.42    2026-02-06           328          0.965843              1       HIGH
+   CUSTOMER CUST000816               1        29.48    2026-02-18           316          0.964815              1       HIGH
+   CUSTOMER CUST001059               1        63.44    2026-02-01           333          0.964099              1       HIGH
+   CUSTOMER CUST001062               1        69.07    2026-01-24           341          0.963839              1       HIGH
+   CUSTOMER CUST000624               1        40.59    2026-02-18           316          0.963196              1       HIGH
+   CUSTOMER CUST001143               1        39.82    2026-02-19           315          0.962874              1       HIGH\n

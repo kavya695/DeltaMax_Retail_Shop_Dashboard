@@ -1,0 +1,52 @@
+﻿from google.cloud import bigquery
+
+GCP_PROJECT = "datatoolunstructured"
+BQ_DATASET = "deltamax_migration"
+BQ_SOURCE_TABLE = "hab_combined"
+
+def read_csv_from_s3(filename: str) -> pd.DataFrame:
+    """Read the configured HAB source table from BigQuery."""
+    client = bigquery.Client(project=GCP_PROJECT)
+    table_id = f"{GCP_PROJECT}.{BQ_DATASET}.{BQ_SOURCE_TABLE}"
+    print(f"Reading input from BigQuery: {table_id}")
+    df = client.query(f"SELECT * FROM `{table_id}`").to_dataframe()
+    print(f"[OK] Loaded {len(df)} rows from BigQuery")
+    return df
+
+def upload_df_to_s3(df: pd.DataFrame, filename: str) -> bool:
+    """Write a DataFrame to a new, versioned BigQuery table."""
+    client = bigquery.Client(project=GCP_PROJECT)
+    output_names = {
+        "pre_migration_summary.csv": "pre_migration_summary_v1",
+        "pre_migration_hab.csv": "pre_migration_hab_v1",
+    }
+    if filename.startswith("final_"):
+        table_name = "pre_migration_" + filename.removesuffix(".csv").lower() + "_v1"
+    else:
+        table_name = output_names.get(filename)
+    if not table_name:
+        print(f"[ERROR] No BigQuery destination configured for {filename}")
+        return False
+
+    table_id = f"{GCP_PROJECT}.{BQ_DATASET}.{table_name}"
+    try:
+        if client.get_table(table_id):
+            print(f"[ERROR] Destination already exists; not overwriting: {table_id}")
+            return False
+    except Exception as exc:
+        if getattr(exc, "code", None) != 404:
+            print(f"[ERROR] Could not verify destination {table_id}: {exc}")
+            return False
+
+    try:
+        job_config = bigquery.LoadJobConfig(
+            write_disposition=bigquery.WriteDisposition.WRITE_EMPTY
+        )
+        job = client.load_table_from_dataframe(df, table_id, job_config=job_config)
+        job.result()
+        print(f"[OK] Loaded {len(df)} rows into BigQuery: {table_id}")
+        return True
+    except Exception as exc:
+        print(f"[BigQuery] Upload FAILED for {table_id}: {exc}")
+        return False
+

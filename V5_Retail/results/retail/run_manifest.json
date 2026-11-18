@@ -1,0 +1,36 @@
+{
+  "engine_version": "1.0.0",
+  "project": "retail",
+  "run_at": "2026-11-04T11:28:53",
+  "settings_file": "retail.yaml",
+  "settings_hash": "8b171d6c31",
+  "rows": 11361,
+  "pillars_used": [
+    "anomaly",
+    "drift",
+    "business",
+    "freshness"
+  ],
+  "pillar_weights": {
+    "anomaly": 0.4,
+    "drift": 0.25,
+    "business": 0.2,
+    "freshness": 0.15
+  },
+  "mean_trust": 0.9518,
+  "alerts": 15,
+  "rule_hits": {
+    "quantity_not_positive": 20,
+    "negative_total": 0,
+    "price_not_positive": 0,
+    "total_does_not_add_up": 36,
+    "discount_out_of_range": 41,
+    "price_far_from_normal": 11,
+    "negative_stock": 0,
+    "sold_more_than_stock": 72
+  },
+  "warnings": [],
+  "storage": [],
+  "email": "email not requested",
+  "seconds": 12.1
+}

@@ -1,0 +1,47 @@
+{
+  "params": {
+    "W_ISO": 0.58,
+    "W_IQR": 0.51,
+    "W_MISSING": 0.2,
+    "W_DUPLICATE": 0.45,
+    "W_KNN": 0.55,
+    "WEIGHT_ANOMALY_HEALTH": 0.4,
+    "WEIGHT_DRIFT_HEALTH": 0.25,
+    "WEIGHT_BUSINESS_HEALTH": 0.2,
+    "WEIGHT_FRESHNESS_HEALTH": 0.15,
+    "IQR_MULTIPLIER": 5.0,
+    "ISO_N_ESTIMATORS": 100.0,
+    "ISO_DECISION_THRESHOLD": 0.0,
+    "KNN_K": 5.0,
+    "KNN_PERCENTILE": 0.95,
+    "ARIMA_SIGMA_K": 3.0,
+    "ARIMA_MIN_COL_FLAGS": 5.0,
+    "ARIMA_MIN_TRAIN_POINTS": 8.0,
+    "FRESHNESS_TAU": 5.0,
+    "WEIGHT_MAHAL": 0.7,
+    "WEIGHT_WELCH": 0.1,
+    "WEIGHT_PSI": 0.2,
+    "MAX_POSSIBLE_FLAGS": 22.0
+  },
+  "anomaly": {
+    "iqr_multiplier": 5.0,
+    "weights": {
+      "isolation_forest": 0.58,
+      "iqr": 0.51,
+      "missing": 0.2,
+      "duplicate": 0.45,
+      "knn": 0.55
+    }
+  },
+  "scoring": {
+    "weights": {
+      "anomaly": 0.4,
+      "drift": 0.25,
+      "business": 0.2,
+      "freshness": 0.15
+    }
+  },
+  "freshness": {
+    "tau": 5.0
+  }
+}

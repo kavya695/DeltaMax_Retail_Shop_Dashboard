@@ -1,0 +1,98 @@
+# ====================================================================
+# DeltaMax settings: RETAIL SHOP
+# One row = one sale. Every sale links a SHOP, a PRODUCT and a CUSTOMER,
+# so we report trust at all three levels from the same table.
+# Rules are STARTER examples - confirm every number with the shop owners.
+# ====================================================================
+project: retail
+description: Retail shop sales transactions (shop / product / customer)
+
+input:
+  path: data/retail_shop_data.csv
+
+columns:
+  month: data_month          # YYYY-MM text column
+  lineage: data_lineage      # HISTORICAL / PREVIOUS_MONTH / CURRENT_MONTH
+
+# What do we report trust for? Same table, three views.
+entities:
+  - {type: SHOP,     column: store_id,    grain: month}     # trust per shop per month
+  - {type: PRODUCT,  column: product_id,  grain: month}     # trust per product per month
+  - {type: CUSTOMER, column: customer_id, grain: overall}   # too sparse for monthly - one row per customer
+
+duplicate_key: [transaction_id]        # the same sale must not appear twice
+not_null: [customer_id]                # a sale without a customer is incomplete
+
+features:                              # numbers watched for odd values and drift
+  - quantity
+  - unit_price
+  - discount_pct
+  - discount_amount
+  - total_amount
+  - stock_at_start
+  - stock_sold
+  - stock_remaining
+
+# Price compared with that PRODUCT's usual price (1.0 = normal, 10 = entered 10x too high).
+derived:
+  - {name: price_ratio, column: unit_price, by: product_id, how: ratio_to_group_median}
+
+# 'when' is TRUE when the row is WRONG.
+rules:
+  - {name: quantity_not_positive,   severity: CRITICAL, when: "quantity <= 0"}
+  - {name: negative_total,          severity: CRITICAL, when: "total_amount < 0"}
+  - {name: price_not_positive,      severity: CRITICAL, when: "unit_price <= 0"}
+  - {name: total_does_not_add_up,   severity: HIGH,     when: "abs(total_amount - (quantity * unit_price - discount_amount)) > 1"}
+  - {name: discount_out_of_range,   severity: HIGH,     when: "(discount_pct < 0) | (discount_pct > 20)"}   # TODO confirm max discount
+  - {name: price_far_from_normal,   severity: HIGH,     when: "(price_ratio > 1.6) | (price_ratio < 0.5)"}   # TODO confirm tolerance
+  - {name: negative_stock,          severity: HIGH,     when: "stock_remaining < 0"}
+  - {name: sold_more_than_stock,    severity: MEDIUM,   when: "stock_sold > stock_at_start"}
+
+anomaly:
+  iqr_multiplier: 5          # 3 flagged 7.5% of normal sales (too noisy); 5 flags 3.5%
+  weights: {iqr: 0.30, missing: 0.20, duplicate: 0.20, isolation_forest: 0.15, knn: 0.15}
+
+business:
+  method: severity_weighted
+  severity_weights: {CRITICAL: 0.5, HIGH: 0.3, MEDIUM: 0.15, LOW: 0.05}
+
+# Freshness: each shop sends ONE feed per month. We compare when it was due with when it arrived.
+freshness:
+  enabled: true
+  expected_date_column: expected_arrival_date
+  actual_date_column: ingestion_date
+  tau: 5                  # 5 days late ~ 37% health, 10 days ~ 14%
+
+scoring:
+  weights: {anomaly: 0.40, drift: 0.25, business: 0.20, freshness: 0.15}
+
+forecast:
+  horizon: 3
+  min_points: 8
+  deviation_alert_pct: 30
+  series:
+    - {name: monthly_sales,         column: total_amount,   agg: sum,   level: ALL}
+    - {name: shop_monthly_sales,    column: total_amount,   agg: sum,   level: SHOP}
+    - {name: shop_transactions,     column: transaction_id, agg: count, level: SHOP}
+    - {name: product_monthly_sales, column: total_amount,   agg: sum,   level: PRODUCT}
+    - {name: return_rate,           column: is_return,      agg: mean,  level: ALL, ceiling: 0.06}   # TODO confirm limit
+
+alerts:
+  trust_below: 0.75
+  pillar_below: 0.75
+  mom_drop: 0.05
+  high_risk_trust: 0.6
+
+churn:                                  # customers who may stop buying
+  enabled: true
+  entity_type: CUSTOMER
+  entity_column: customer_id
+  date_column: sale_date
+  value_column: total_amount
+  inactive_days: 60
+
+notify:
+  email: false          # set true + environment variables to email alerts (see README)
+
+storage:
+  bigquery: null

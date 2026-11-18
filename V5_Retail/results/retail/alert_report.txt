@@ -1,0 +1,38 @@
+DeltaMax Alert Report - project: retail
+Generated: 2026-11-04 11:28
+============================================================
+Pillar weights used: anomaly=0.40, drift=0.25, business=0.20, freshness=0.15
+
+Trust by lineage:
+  CURRENT_MONTH   records=   1180  trust=0.9256
+  HISTORICAL      records=   8826  trust=0.9578
+  PREVIOUS_MONTH  records=   1355  trust=0.9356
+  ALL             records=  11361  trust=0.9518
+
+Total alerts: 15
+alert_level
+MEDIUM    13
+HIGH       2
+
+[HIGH] ACTUAL_VS_FORECAST | PRODUCT P1006 | 2026-12 | product_monthly_sales = 114.9277 (limit 30.0)
+[HIGH] FORECAST_BELOW_FLOOR | ALL ALL | 2027-01 | freshness_health = 0.7113 (limit 0.75)
+[MEDIUM] PILLAR_BELOW_THRESHOLD | ALL ALL | 2026-12 | freshness_health = 0.6466 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001055 | CURRENT | trust_current_month = 0.4911 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001757 | CURRENT | trust_current_month = 0.4911 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001408 | CURRENT | trust_current_month = 0.5983 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001495 | CURRENT | trust_current_month = 0.4911 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001523 | CURRENT | trust_current_month = 0.4911 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST000336 | CURRENT | trust_current_month = 0.6524 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST002179 | CURRENT | trust_current_month = 0.6165 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST002521 | CURRENT | trust_current_month = 0.6563 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001759 | CURRENT | trust_current_month = 0.6963 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST001631 | CURRENT | trust_current_month = 0.7405 (limit 0.75)
+[MEDIUM] ENTITY_TRUST_LOW | CUSTOMER CUST002429 | CURRENT | trust_current_month = 0.7211 (limit 0.75)
+[MEDIUM] ACTUAL_VS_FORECAST | PRODUCT P1010 | 2026-12 | product_monthly_sales = -34.4422 (limit 30.0)
+
+Business rules broken (row counts):
+  quantity_not_positive: 20
+  total_does_not_add_up: 36
+  discount_out_of_range: 41
+  price_far_from_normal: 11
+  sold_more_than_stock: 72

@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start DeltaMax frontend and API",
+			"type": "shell",
+			"command": "npm --prefix V5_Retail/frontend run dev",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

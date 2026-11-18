@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-06-27T22:37:55.532420",
+  "enabled": true,
+  "anomalies": {
+    "drop_records": [
+      {
+        "file": "results/hab_clean_with_anomalies.csv",
+        "original_count": 594424,
+        "dropped": 29721,
+        "remaining": 564703,
+        "percentage": 5
+      }
+    ],
+    "introduce_duplicates": [
+      {
+        "file": "results/hab_clean_with_anomalies.csv",
+        "original_count": 564703,
+        "duplicates_added": 56470,
+        "final_count": 621173
+      }
+    ],
+    "corrupt_values": [
+      {
+        "file": "results/hab_clean_with_anomalies.csv",
+        "nans_introduced": 371822,
+        "total_nans": 2925786
+      }
+    ],
+    "create_outliers": [
+      {
+        "file": "results/hab_clean_with_anomalies.csv",
+        "outliers_created": 10000
+      }
+    ],
+    "business_rule_violations": [
+      {
+        "file": "results/hab_clean_with_anomalies.csv",
+        "violations_created": 1500
+      }
+    ]
+  }
+}

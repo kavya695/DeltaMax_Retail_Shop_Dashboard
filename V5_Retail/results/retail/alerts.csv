@@ -1,0 +1,16 @@
+alert_level,alert_type,entity_type,entity_id,month,metric,value,threshold,message
+HIGH,ACTUAL_VS_FORECAST,PRODUCT,P1006,2026-12,product_monthly_sales,114.9277,30.0,Latest product_monthly_sales differs from what the model expected (deviation in %).
+HIGH,FORECAST_BELOW_FLOOR,ALL,ALL,2027-01,freshness_health,0.7113,0.75,Forecast of freshness_health falls below its floor.
+MEDIUM,PILLAR_BELOW_THRESHOLD,ALL,ALL,2026-12,freshness_health,0.6466,0.75,Current-month freshness_health is below the threshold.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001055,CURRENT,trust_current_month,0.4911,0.75,CUSTOMER CUST001055 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001757,CURRENT,trust_current_month,0.4911,0.75,CUSTOMER CUST001757 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001408,CURRENT,trust_current_month,0.5983,0.75,CUSTOMER CUST001408 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001495,CURRENT,trust_current_month,0.4911,0.75,CUSTOMER CUST001495 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001523,CURRENT,trust_current_month,0.4911,0.75,CUSTOMER CUST001523 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST000336,CURRENT,trust_current_month,0.6524,0.75,CUSTOMER CUST000336 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST002179,CURRENT,trust_current_month,0.6165,0.75,CUSTOMER CUST002179 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST002521,CURRENT,trust_current_month,0.6563,0.75,CUSTOMER CUST002521 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001759,CURRENT,trust_current_month,0.6963,0.75,CUSTOMER CUST001759 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST001631,CURRENT,trust_current_month,0.7405,0.75,CUSTOMER CUST001631 has low current-month trust.
+MEDIUM,ENTITY_TRUST_LOW,CUSTOMER,CUST002429,CURRENT,trust_current_month,0.7211,0.75,CUSTOMER CUST002429 has low current-month trust.
+MEDIUM,ACTUAL_VS_FORECAST,PRODUCT,P1010,2026-12,product_monthly_sales,-34.4422,30.0,Latest product_monthly_sales differs from what the model expected (deviation in %).

@@ -1,0 +1,42 @@
+{
+  "HISTORICAL": {
+    "records": 8826,
+    "psi_health": 1.0,
+    "welch_health": 1.0,
+    "mahalanobis_health": 0.9696,
+    "drifted_features": [],
+    "top_psi": {}
+  },
+  "PREVIOUS_MONTH": {
+    "records": 1355,
+    "psi_health": 0.9292,
+    "welch_health": 0.875,
+    "mahalanobis_health": 0.9736,
+    "drifted_features": [
+      "discount_pct"
+    ],
+    "top_psi": {
+      "unit_price": 0.0393,
+      "discount_pct": 0.0386,
+      "discount_amount": 0.02,
+      "total_amount": 0.0193,
+      "stock_remaining": 0.0096
+    }
+  },
+  "CURRENT_MONTH": {
+    "records": 1180,
+    "psi_health": 0.9279,
+    "welch_health": 0.875,
+    "mahalanobis_health": 0.971,
+    "drifted_features": [
+      "discount_pct"
+    ],
+    "top_psi": {
+      "unit_price": 0.0515,
+      "discount_pct": 0.0304,
+      "total_amount": 0.0245,
+      "discount_amount": 0.0167,
+      "stock_remaining": 0.0121
+    }
+  }
+}
